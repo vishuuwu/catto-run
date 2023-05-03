@@ -14,6 +14,7 @@ pygame.display.set_caption("Catto-run")
 SCORE = 0 
 font = pygame.font.SysFont('arial', 24)
 
+
 # layer image load
 layer_list = []
 for i in range(0, 12):

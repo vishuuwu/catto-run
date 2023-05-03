@@ -1,4 +1,4 @@
-# add coins spawns
+# adds collison and score update 
 import pygame
 import math
 import random

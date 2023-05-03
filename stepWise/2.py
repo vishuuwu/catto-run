@@ -27,14 +27,27 @@ bg_width = layer_list[0].get_width()
 
 run = True
 while run:
+    # controls duration between each interation
+    clock.tick(FPS)
 
+    # first we ll just draw the images (static)
+    
     for i in layer_list:
+        # WIN.blit(things to display, co-ordinates) 
         WIN.blit(i, (0, 0))
 
-    
-    score_text = font.render("Score: {}".format(SCORE), True, (0, 0, 0))
+    # lets also add a score counter 
+    SCORE +=0.01
+    score_text = font.render("Score: {}".format(int(SCORE)), True, (0, 0, 0))
     WIN.blit(score_text, (10, 10)) 
-    pygame.display.update()
+    
+
+    # pygame.display.update() 
+    # needed to reflect any changes done to the window 
+    # hence we update the display in the last 
+    # rn everything is static, will be useful when we use animation
+    pygame.display.update() 
+    
 
     # Quit 
     for event in pygame.event.get():

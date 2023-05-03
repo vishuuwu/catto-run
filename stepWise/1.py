@@ -11,10 +11,12 @@ pygame.display.set_caption("Catto-run")
 run = True
 while run:
 
+
+    
     # Quit 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
-    pygame.display.update()
+    
 pygame.quit()

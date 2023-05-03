@@ -28,20 +28,36 @@ bg_width = layer_list[0].get_width()
 # num of images we need to draw at a given time per layer to fill the whole window
 tiles = math.ceil(SCREEN_WIDTH / bg_width) + 1
 
+
+
+# use this + 1 after running the code once 
+
+# without using + 1 we will get tiles = 2 , which is fine at first but
+ 
+# lets we have 100 px from the 1(tile 1 is scrolled by 693 px) tile 793 px of the 2nd tile 
+# still only 893 px are covered from the 
+# in such cased the extra third image is useful
+
 layer_scroll_velocities = [0, 0.1, 0.2, 0.25, 0.3, 0.35, 0.55, 0.7, 0.8, 0.8, 1, 1]
+# we store how much each layer has scrolled individually since they have different velocities 
 scrolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
 vel = 1
 max_vel = 8
 # Layer drawer
 def drawLayer(image, scrolled_by, speed_modifier):
+    # for first interation draw all the three tiles at (0,0) , (793, 0) , (793 *2 , 0)
     for i in range(tiles):
         WIN.blit(image, (bg_width * i + scrolled_by, 0))
 
+    # we use scrolled_by (bg_width * i + scrolled_by, 0 ) to continously update the x- coordinate 
+
     scrolled_by -= vel * speed_modifier
-    # reset Scroll if 793 px i.e, 1 image is scrolled 
+    # reset Scroll if 793 px i.e, 1 image is scrolled to make the change look seemless
     if abs(scrolled_by) >= bg_width:
         scrolled_by = 0
     return scrolled_by
+# returns scrolled_by to keep track of it
 
 run = True
 while run:

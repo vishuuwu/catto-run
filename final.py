@@ -12,14 +12,14 @@ FPS = 60
 SCREEN_WIDTH = 1440
 SCREEN_HEIGHT = 793
 SCORE = 0 
-win = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+WIN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("the-game")
 
 
 # Layer drawer
 def drawLayer(image, scroll, speed_modifier):
     for i in range(tiles):
-        win.blit(image, (bg_width * i + scroll, 0))
+        WIN.blit(image, (bg_width * i + scroll, 0))
 
     scroll -= vel * speed_modifier
     # resetScroll
@@ -32,7 +32,7 @@ def lerp(lerp_from, lerp_to, t):
 
 
 def drawSprite(image, index, list_length, speed):
-    win.blit(image,(x_pos, y_pos))
+    WIN.blit(image,(x_pos, y_pos))
     if index >= list_length:
         index = 0
     else: 
@@ -62,8 +62,17 @@ walk_list = [pygame.image.load("sprite\walk_0.png").convert_alpha(),
              pygame.image.load("sprite\walk_7.png").convert_alpha(),
             ]
 walk_index = 0
-
-
+idleUp_list = [pygame.image.load("sprite\idleUp_0.png").convert_alpha(),
+             pygame.image.load("sprite\idleUp_1.png").convert_alpha(),
+             pygame.image.load("sprite\idleUp_2.png").convert_alpha(),
+             pygame.image.load("sprite\idleUp_3.png").convert_alpha(),
+             pygame.image.load("sprite\idleUp_4.png").convert_alpha(),
+             pygame.image.load("sprite\idleUp_5.png").convert_alpha(),
+             pygame.image.load("sprite\idleUp_6.png").convert_alpha(),
+             pygame.image.load("sprite\idleUp_7.png").convert_alpha(),
+            ]
+sprite_list = [ walk_list , idleUp_list]
+walk_index = 0
 
 
 coin_img = pygame.image.load("coins/gold_0.png").convert_alpha()
@@ -74,8 +83,8 @@ scroll_velocities = [0, 0.1, 0.2, 0.25, 0.3, 0.35, 0.55, 0.7, 0.8, 0.8, 1, 1]
 scrolls = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 tiles = math.ceil(SCREEN_WIDTH / bg_width) + 1
 
-# for the lerp
-#vel = 0
+font = pygame.font.SysFont('arial', 24)
+
 max_vel = 8
 acceleration = 0.2
 
@@ -87,8 +96,8 @@ width, heigth = 32, 32
 isJump = False
 jump_count = 10
 special_rect = pygame.Rect(200, y_pos, coin_width, coin_height)
+
 # coin
-coin_speed = 2
 spawn_delay = 4000  # ms between spawns
 last_spawn_time = pygame.time.get_ticks() - spawn_delay
 
@@ -99,7 +108,7 @@ class Coin:
         self.image = image
 
     def draw(self):
-        win.blit(self.image, (self.x, self.y))
+        WIN.blit(self.image, (self.x, self.y))
 
     def move(self):
         self.x -= vel
@@ -114,11 +123,12 @@ coins = []
 
 run = True
 while run:
-    SCORE += 1
+    # SCORE += 1
     # pygame.time.delay(100)
     clock.tick(FPS)
     #layers Draw
     if vel > 0:
+        # SCORE += 1
         for i in range(0, len(layer_list)):
             scrolls[i] = drawLayer(layer_list[i], scrolls[i], scroll_velocities[i])
     
@@ -145,7 +155,7 @@ while run:
     
     #character draw
     special_rect = pygame.Rect(216, y_pos+168, coin_width, coin_height)
-    draw_rect_alpha(win, (255, 0, 0, 0), special_rect)
+    draw_rect_alpha(WIN, (255, 0, 0, 0), special_rect)
     walk_index = drawSprite(walk_list[math.floor(walk_index)], walk_index, len(walk_list)-1, 5)
 
     # coins_index = drawCoins(coins_list[math.floor(coins_index)], coins_index, len(coins_list)-1, 5)
@@ -175,6 +185,8 @@ while run:
             jump_count = 10
 
     # Event handlers
+    score_text = font.render("Score: {}".format(SCORE), True, (0, 0, 0))
+    WIN.blit(score_text, (10, 10))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False

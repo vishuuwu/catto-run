@@ -1,4 +1,9 @@
 # loading and draw image
+# code added from
+# line 7 
+# line 18 
+# line 35
+
 import pygame
 pygame.init()
 

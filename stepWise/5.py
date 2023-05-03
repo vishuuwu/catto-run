@@ -1,4 +1,7 @@
 # add jump to sprite 
+# varibles added in sprite variable section 
+# jump functionality added in the main loop 
+
 import pygame
 import math
 
@@ -118,6 +121,7 @@ while run:
         if keys[pygame.K_SPACE] or keys[pygame.K_w] or keys[pygame.K_UP]:
             isJump = True
     else: 
+        
         if jump_count >= -10:
             neg = 1
             if jump_count < 0:

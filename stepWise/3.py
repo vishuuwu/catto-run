@@ -1,5 +1,6 @@
 # adds parallax effect
-
+# check from line 27 
+#
 import pygame
 import math
 
@@ -66,6 +67,7 @@ while run:
     keys = pygame.key.get_pressed()
 
     # layers Draw 
+    # drawing each layer individually 
     for i in range(0, len(layer_list)):
             scrolls[i] = drawLayer(layer_list[i], scrolls[i], layer_scroll_velocities[i])
 

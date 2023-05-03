@@ -15,6 +15,10 @@ SCORE = 0
 font = pygame.font.SysFont('arial', 24)
 
 
+# get assets from here 
+# keys words : 2D , platformer, parallax, layers 
+# https://itch.io/games/free/genre-platformer
+
 # layer image load
 layer_list = []
 for i in range(0, 12):
